@@ -1,12 +1,13 @@
 [package]
-name = "digital_asset_launchpad"
+name = "rxnet"
 version = "1.0.0"
 authors = []
 
 [addresses]
-launchpad_addr = "_"
-initial_creator_addr = "_"
-minter = "_"
+launchpad_addr = "0x611e491836a41175e23d007df4afc1cb2ecf00570fd12262db9e7e261868b491"
+initial_creator_addr = "0x611e491836a41175e23d007df4afc1cb2ecf00570fd12262db9e7e261868b491"
+minter = "0x3"
+prescription_nft = "0x611e491836a41175e23d007df4afc1cb2ecf00570fd12262db9e7e261868b491"
 
 [dependencies]
 AptosFramework = { git = "https://github.com/aptos-labs/aptos-core.git", rev = "mainnet", subdir = "aptos-move/framework/aptos-framework" }
