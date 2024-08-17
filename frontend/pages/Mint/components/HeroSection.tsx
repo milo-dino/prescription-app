@@ -26,7 +26,20 @@ import { config } from "@/config";
 // Internal enrty functions
 import { mintNFT } from "@/entry-functions/mint_nft";
 
+import { PillBottleIcon, RotateCcwIcon } from "lucide-react";
+
 interface HeroSectionProps {}
+
+interface FormData {
+  patientAddress: string;
+  medicationName: string;
+  dosage: string;
+  dosageUnit: string;
+  num_pills: string;
+  date_filled: string;
+  expiration_time: string;
+  prescriptionFile: File | null;
+}
 
 export const HeroSection: React.FC<HeroSectionProps> = () => {
   const { data } = useGetCollectionData();
@@ -38,47 +51,180 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
 
   const mintNft = async (e: FormEvent) => {
     e.preventDefault();
+
     if (!account || !data?.isMintActive) return;
     if (!collection?.collection_id) return;
 
     const response = await signAndSubmitTransaction(
-      mintNFT({ collectionId: collection.collection_id, amount: nftCount }),
+      mintNFT({ collectionId: collection.collection_id, amount: nftCount, prescriptionData: JSON.stringify(formData) }),
     );
     await aptosClient().waitForTransaction({ transactionHash: response.hash });
     queryClient.invalidateQueries();
     setNftCount(1);
   };
 
+  const [formData, setFormData] = useState<FormData>({
+    patientAddress: "",
+    medicationName: "",
+    dosage: "",
+    dosageUnit: "",
+    num_pills: "",
+    date_filled: "",
+    expiration_time: "",
+    prescriptionFile: null,
+  });
+
+  const handleReset = () => {
+    setFormData({
+      patientAddress: "",
+      medicationName: "",
+      dosage: "",
+      dosageUnit: "",
+      num_pills: "",
+      date_filled: "",
+      expiration_time: "",
+      prescriptionFile: null,
+    });
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setFormData({ ...formData, prescriptionFile: e.target.files[0] });
+    }
+  };
+
   return (
     <section className="hero-container flex flex-col md:flex-row gap-6 px-4 max-w-screen-xl mx-auto w-full">
-      <Image
-        src={collection?.cdn_asset_uris.cdn_image_uri ?? collection?.cdn_asset_uris.cdn_animation_uri ?? Placeholder1}
-        rounded
-        className="w-full md:basis-2/5 aspect-square object-cover self-center"
-      />
-      <div className="basis-3/5 flex flex-col gap-4">
+      <div className="flex flex-col gap-4 w-full">
         <h1 className="title-md">{collection?.collection_name ?? config.defaultCollection?.name}</h1>
-        <Socials />
         <p className="body-sm">{collection?.description ?? config.defaultCollection?.description}</p>
 
-        <Card>
+        <Card className="w-full">
           <CardContent
             fullPadding
-            className="flex flex-col md:flex-row gap-4 md:justify-between items-start md:items-center flex-wrap"
+            className="flex flex-auto md:flex-row gap-4 md:justify-between items-start md:items-center flex-wrap w-full"
           >
-            <form onSubmit={mintNft} className="flex flex-col md:flex-row gap-4 w-full md:basis-1/4">
-              <Input
-                type="number"
-                disabled={!data?.isMintActive}
-                value={nftCount}
-                onChange={(e) => setNftCount(parseInt(e.currentTarget.value, 10))}
-              />
-              <Button className="h-16 md:h-auto" type="submit" disabled={!data?.isMintActive}>
-                Mint
-              </Button>
+            <form onSubmit={mintNft} className="flex flex-col gap-4 w-full">
+              <div className="flex flex-col gap-4">
+                <div className="flex flex-col md:flex-row items-center gap-2">
+                  <label className="w-full md:w-1/4 text-right pr-4">Patient Address</label>
+                  <Input
+                    type="text"
+                    name="patientAddress"
+                    value={formData.patientAddress}
+                    onChange={handleChange}
+                    placeholder="Patient Address"
+                    required
+                    className="w-full md:w-3/4"
+                  />
+                </div>
+                <div className="flex flex-col md:flex-row items-center gap-2">
+                  <label className="w-full md:w-1/4 text-right pr-4">Medication Name</label>
+                  <Input
+                    type="text"
+                    name="medicationName"
+                    value={formData.medicationName}
+                    onChange={handleChange}
+                    placeholder="Medication Name"
+                    required
+                    className="w-full md:w-3/4"
+                  />
+                </div>
+                <div className="flex flex-col md:flex-row items-center gap-2">
+                  <label className="w-full md:w-1/4 text-right pr-4">Dosage</label>
+                  <Input
+                    type="number"
+                    name="dosage"
+                    value={formData.dosage}
+                    onChange={handleChange}
+                    placeholder="Dosage"
+                    required
+                    className="w-full md:w-3/4"
+                  />
+                </div>
+                <div className="flex flex-col md:flex-row items-center gap-2">
+                  <label className="w-full md:w-1/4 text-right pr-4">Dosage Unit</label>
+                  <Input
+                    type="text"
+                    name="dosageUnit"
+                    value={formData.dosageUnit}
+                    onChange={handleChange}
+                    placeholder="Dosage Unit"
+                    required
+                    className="w-full md:w-3/4"
+                  />
+                </div>
+                <div className="flex flex-col md:flex-row items-center gap-2">
+                  <label className="w-full md:w-1/4 text-right pr-4">Qty Dispensed</label>
+                  <Input
+                    type="number"
+                    name="num_pills"
+                    value={formData.num_pills}
+                    onChange={handleChange}
+                    placeholder="Amount of Pills"
+                    required
+                    className="w-full md:w-3/4"
+                  />
+                </div>
+                <div className="flex flex-col md:flex-row items-center gap-2">
+                  <label className="w-full md:w-1/4 text-right pr-4">From</label>
+                  <div className="flex flex-col md:flex-row items-center gap-2 w-full md:w-3/4">
+                    <Input
+                      type="date"
+                      name="date_filled"
+                      value={formData.date_filled}
+                      onChange={handleChange}
+                      placeholder="Date"
+                      required
+                      className="w-full md:w-1/2"
+                    />
+                    <label className="w-full md:w-auto text-right pr-4 md:pr-2">To</label>
+                    <Input
+                      type="date"
+                      name="expiration_time"
+                      value={formData.expiration_time}
+                      onChange={handleChange}
+                      placeholder="Expiration Time"
+                      required
+                      className="w-full md:w-1/2"
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col md:flex-row items-center gap-2">
+                  <label className="w-full md:w-1/4 text-right pr-4">Prescription Document</label>
+                  <Input
+                    type="file"
+                    name="prescription_file"
+                    onChange={handleFileChange}
+                    placeholder="Prescription File"
+                    required
+                    className="w-full md:w-3/4"
+                  />
+                </div>
+              </div>
+
+              <div className="flex justify-left gap-6 ml-16 mt-4">
+                <Button className="h-16 md:h-auto gap-4 hover:bg-[#d42929] hover:text-white" onClick={handleReset}>
+                  Reset
+                  <RotateCcwIcon />
+                </Button>
+                <Button
+                  className="h-16 md:h-auto gap-4 hover:bg-[#1c970c] hover:text-white"
+                  type="submit"
+                  disabled={data?.isMintActive}
+                >
+                  Mint
+                  <PillBottleIcon />
+                </Button>
+              </div>
             </form>
 
-            <div className="flex flex-col gap-2 w-full md:basis-1/2">
+            <div className="flex flex-col gap-2 w-full">
               <p className="label-sm text-secondary-text">
                 {clampNumber(totalMinted)} / {clampNumber(maxSupply)} Minted
               </p>

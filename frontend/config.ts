@@ -1,6 +1,12 @@
-import Placeholder1 from "@/assets/placeholders/bear-1.png";
-import Placeholder2 from "@/assets/placeholders/bear-2.png";
-import Placeholder3 from "@/assets/placeholders/bear-3.png";
+import Placeholder1 from "@/assets/teampictures/faw.jpg";
+import Placeholder2 from "@/assets/teampictures/brandon.jpg";
+import Placeholder3 from "@/assets/teampictures/amirul.jpg";
+
+import rys from "@/assets/teampictures/rys.jpg";
+import amirul from "@/assets/teampictures/amirul.jpg";
+import brandon from "@/assets/teampictures/brandon.jpg";
+import faw from "@/assets/teampictures/faw.jpg";
+import yixuan from "@/assets/teampictures/yixuan.jpg";
 
 export const config: Config = {
   // TODO: Fill in your collection id
@@ -32,26 +38,51 @@ export const config: Config = {
     title: "Our Team",
     members: [
       {
-        name: "Mepoti",
-        role: "Aliquip Esse",
-        img: Placeholder1,
+        name: "Amirul Azizol",
+        role: "Project Manager",
+        desc: "Y3S2 Monash University",
+        img: amirul,
         socials: {
-          twitter: "https://twitter.com",
+          discord: "https://youtu.be/Ba2q8bDTRTU?si=QAvLEeJGZGeoqwnV",
         },
       },
       {
-        name: "Zucker",
-        role: "Sunt Duis",
-        img: Placeholder2,
-      },
-      {
-        name: "SimonT",
-        role: "Ullamco Tempor",
-        img: Placeholder3,
+        name: "Brandon Yong",
+        role: "Software Architect",
+        desc: "Y3S2 Monash University",
+        img: brandon,
         socials: {
-          twitter: "https://twitter.com",
+          discord: "https://youtu.be/Ba2q8bDTRTU?si=QAvLEeJGZGeoqwnV",
         },
       },
+      {
+        name: "Fawwad M. K. Ali",
+        role: "Technical Lead",
+        desc: "Y3S2 Monash University",
+        img: faw,
+        socials: {
+          discord: "https://youtu.be/Ba2q8bDTRTU?si=QAvLEeJGZGeoqwnV",
+        },
+      },
+      {
+        name: "Nisha Kannapper",
+        role: "UI/UX Lead",
+        desc: "Y3S2 Monash University",
+        img: rys,
+        socials: {
+          discord: "https://youtu.be/Ba2q8bDTRTU?si=QAvLEeJGZGeoqwnV",
+        },
+      },
+      {
+        name: "Yi Xuan Lim",
+        role: "Full Stack Developer",
+        desc: "Y3S2 Monash University",
+        img: yixuan,
+        socials: {
+          discord: "https://youtu.be/Ba2q8bDTRTU?si=QAvLEeJGZGeoqwnV",
+        },
+      },
+      
     ],
   },
 
@@ -122,6 +153,7 @@ export interface Config {
 export interface ConfigTeamMember {
   name: string;
   role: string;
+  desc: string;
   img: string;
   socials?: {
     twitter?: string;

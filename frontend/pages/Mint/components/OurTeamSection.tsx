@@ -47,6 +47,7 @@ const TeamCard: FC<{ member: ConfigTeamMember }> = ({ member }) => {
           )}
         </CardTitle>
         <CardDescription className="text-center text-secondary-text">{member.role}</CardDescription>
+        <CardDescription className="text-center text-secondary-text">{member.desc}</CardDescription>
       </CardContent>
     </Card>
   );
