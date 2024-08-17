@@ -1,28 +1,34 @@
 import { FC, FormEvent, useState } from "react";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { useQueryClient } from "@tanstack/react-query";
+
 // Internal assets
 import Copy from "@/assets/icons/copy.svg";
 import ExternalLink from "@/assets/icons/external-link.svg";
-import Placeholder1 from "@/assets/placeholders/bear-1.png";
+
 // Internal utils
 import { truncateAddress } from "@/utils/truncateAddress";
 import { clampNumber } from "@/utils/clampNumber";
 import { formatDate } from "@/utils/formatDate";
 import { aptosClient } from "@/utils/aptosClient";
+
 // Internal hooks
 import { useGetCollectionData } from "@/hooks/useGetCollectionData";
+
 // Internal components
 import { Image } from "@/components/ui/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { Socials } from "@/pages/Mint/components/Socials";
+
 // Internal constants
 import { NETWORK } from "@/constants";
+
 // Internal config
+
 import { config } from "@/config";
+
 // Internal enrty functions
 import { mintNFT } from "@/entry-functions/mint_nft";
 
@@ -101,8 +107,8 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
   return (
     <section className="hero-container flex flex-col md:flex-row gap-6 px-4 max-w-screen-xl mx-auto w-full">
       <div className="flex flex-col gap-4 w-full">
-        <h1 className="title-md">{collection?.collection_name ?? config.defaultCollection?.name}</h1>
-        <p className="body-sm">{collection?.description ?? config.defaultCollection?.description}</p>
+        <h1 className="title-md">{config.formDetails.name}</h1>
+        <p className="body-sm">{config.formDetails.description}</p>
 
         <Card className="w-full">
           <CardContent

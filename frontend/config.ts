@@ -1,6 +1,6 @@
-import Placeholder1 from "@/assets/teampictures/faw.jpg";
-import Placeholder2 from "@/assets/teampictures/brandon.jpg";
-import Placeholder3 from "@/assets/teampictures/amirul.jpg";
+import Placeholder1 from "@/assets/placeholders/pills.jpeg";
+import Placeholder2 from "@/assets/placeholders/pills2.jpg";
+import Placeholder3 from "@/assets/placeholders/pills1.jpg";
 
 import rys from "@/assets/teampictures/rys.jpg";
 import amirul from "@/assets/teampictures/amirul.jpg";
@@ -19,6 +19,11 @@ export const config: Config = {
     homepage: "#",
   },
 
+  formDetails: {
+    name: "Prescription Details",
+    description: "Enter patient and prescription details below to generate your prescription.",
+  },
+
   defaultCollection: {
     name: "Lorem Ipsum",
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris congue convallis augue in pharetra.",
@@ -27,10 +32,15 @@ export const config: Config = {
 
   ourStory: {
     title: "Our Story",
-    subTitle: "Proin lorem",
+    subTitle: "Who Are We?",
     description:
-      "Phasellus pellentesque malesuada pretium. Vestibulum sed justo at velit rhoncus finibus nec quis urna. Aenean rutrum congue tincidunt. Praesent id urna quis risus sodales feugiat vitae quis orci. Proin tincidunt eu nisi quis sollicitudin. Nulla facilisis eget tellus quis fermentum. Nunc vel neque at erat dictum tempus. Aliquam in mollis lacus, non fringilla lacus. Nunc blandit iaculis ante vitae pulvinar.",
-    discordLink: "https://discord.com",
+      "We are a team of five final-year undergraduate Computer Science students from Monash University Malaysia, \
+      united by a shared passion for innovation and technology. Our goal for this project is to develop a prescription \
+      management and verification system, leveraging the power of blockchain technology. \nOur project aims to enhance transparency \
+      and efficiency of prescription management. By utilising blockchain, we ensure that every prescription is securely recorded, \
+      verified, and traceable, minimizing the risk of errors and fraud. Thank you for taking a look at our journey where we strive \
+      to bring our vision to life and contribute to a healthier, more secure future.",
+    discordLink: "https://youtu.be/Ba2q8bDTRTU?si=QAvLEeJGZGeoqwnV",
     images: [Placeholder1, Placeholder2, Placeholder3],
   },
 
@@ -124,6 +134,11 @@ export interface Config {
     name: string;
     description: string;
     image: string;
+  };
+
+  formDetails: {
+    name: string;
+    description: string;
   };
 
   ourTeam?: {

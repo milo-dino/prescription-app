@@ -1,6 +1,6 @@
 // Internal components
-import { buttonVariants } from "@/components/ui/button";
 import { TriImageBanner } from "@/pages/Mint/components/TriImageBanner";
+
 // Internal config
 import { config } from "@/config";
 
@@ -15,18 +15,6 @@ export const OurStorySection: React.FC<OurStorySectionProps> = () => {
         <p className="label-sm">{config.ourStory.subTitle}</p>
         <p className="heading-md">{config.ourStory.title}</p>
         <p className="body-sm pt-2">{config.ourStory.description}</p>
-        {config.socials?.discord && (
-          <a
-            href={config.socials.discord}
-            target="_blank"
-            className={buttonVariants({
-              variant: "outline",
-              className: "mt-4",
-            })}
-          >
-            Join Our Discord
-          </a>
-        )}
       </div>
 
       {config.ourStory.images && config.ourStory.images?.length > 0 && (
